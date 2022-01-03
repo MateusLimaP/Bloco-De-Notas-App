@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Selecione uma foto"/>
+
+    <TextView
+        android:id="@+id/text_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Câmera"
+        android:textSize="18sp"
+        app:drawableStartCompat="@drawable/ic_camera" />
+
+    <TextView
+        android:id="@+id/text_galeria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Galeria"
+        android:textSize="18sp"
+        app:drawableStartCompat="@drawable/ic_galeria" />
+
+    <TextView
+        android:id="@+id/text_internet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Internet"
+        android:textSize="18sp"
+        app:drawableStartCompat="@drawable/ic_internet" />
+
+</LinearLayout>

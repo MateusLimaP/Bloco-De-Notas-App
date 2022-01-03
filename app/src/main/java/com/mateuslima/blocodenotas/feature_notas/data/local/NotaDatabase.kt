@@ -8,6 +8,7 @@ import com.mateuslima.blocodenotas.feature_notas.data.local.dao.NotaDao
 import com.mateuslima.blocodenotas.feature_notas.data.local.entity.NotaEntity
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider

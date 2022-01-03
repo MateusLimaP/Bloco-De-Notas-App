@@ -2,6 +2,7 @@ package com.mateuslima.blocodenotas.feature_notas.presentation.ui.home_notes
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,11 +13,13 @@ import com.mateuslima.blocodenotas.databinding.FragmentHomeNotesBinding
 import com.mateuslima.blocodenotas.feature_notas.data.local.preferences.NotasPreferences
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.NotasAdapter
+import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetFoto
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 
 @AndroidEntryPoint
-class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.NotasAdapterListener {
+class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.NotasAdapterListener,
+BottomSheetFoto.BottomSheetFotoListener{
 
     private var _binding: FragmentHomeNotesBinding? = null
     private val binding get() = _binding!!
@@ -56,6 +59,10 @@ class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.N
             setHasFixedSize(true)
         }
 
+        binding.imagePerfil.setOnClickListener {
+            BottomSheetFoto(requireContext(), this).show()
+        }
+
     }
 
     override fun onDestroyView() {
@@ -68,6 +75,18 @@ class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.N
     }
 
     override fun onLongClickNota(nota: Nota) {
+
+    }
+
+    override fun cameraSelecionada() {
+
+    }
+
+    override fun galeriaSelecionada() {
+
+    }
+
+    override fun internetSelecionada() {
 
     }
 }
