@@ -4,11 +4,11 @@ import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
 import com.mateuslima.blocodenotas.feature_notas.domain.repository.NotasRepository
 import javax.inject.Inject
 
-class AddNotaUseCase @Inject constructor(
+class AtualizarNotaUseCase @Inject constructor(
     private val repository: NotasRepository
 ) {
 
     suspend fun execute(nota: Nota){
-        repository.add(nota)
+        repository.atualizar(nota)
     }
 }
