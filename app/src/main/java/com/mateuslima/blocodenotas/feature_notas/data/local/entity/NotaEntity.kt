@@ -11,10 +11,11 @@ import java.util.*
 data class NotaEntity(
     val titulo: String,
     val descricao: String,
-    val imagemUrl: String,
-    val data: String,
-    val cor: Int,
-    @PrimaryKey val id: Int = 0
+    val imagemUrl: String = "",
+    val data: String = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time),
+    val cor: Int = R.color.bg_semi_dark,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0
 ){
     fun toNota() : Nota{
         return Nota(

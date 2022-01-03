@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mateuslima.blocodenotas.R
 import com.mateuslima.blocodenotas.core.util.setOnQueryTextChange
 import com.mateuslima.blocodenotas.databinding.FragmentHomeNotesBinding
+import com.mateuslima.blocodenotas.feature_notas.data.local.preferences.NotasPreferences
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.NotasAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
 
 @AndroidEntryPoint
 class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.NotasAdapterListener {
@@ -31,11 +34,22 @@ class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.N
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            val ordem = viewModel.ordemSelecionada.first()
+            when (ordem){
+                NotasPreferences.OrganizarNota.TITULO -> binding.radioTitulo.isChecked = true
+                NotasPreferences.OrganizarNota.COR -> binding.radioCor.isChecked = true
+                NotasPreferences.OrganizarNota.DATA -> binding.radioData.isChecked = true
+            }
+        }
+
         binding.searchview.setOnQueryTextChange { search -> viewModel.pesquisa.value = search }
 
         val adapter = NotasAdapter(this)
+
         viewModel.listaNotas.observe(viewLifecycleOwner){ listaNota ->
             adapter.submitList(listaNota)
+            listaNota.forEach { nota -> println("nota = ${nota.titulo}") }
         }
         binding.recyclerNotas.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

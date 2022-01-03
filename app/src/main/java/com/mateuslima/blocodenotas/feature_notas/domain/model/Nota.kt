@@ -8,17 +8,7 @@ import java.util.*
 data class Nota(
     val titulo: String,
     val descricao: String,
-    val imagemUrl: String = "",
-    val data: String = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time),
-    val cor: Int = R.color.bg_semi_dark
-){
-    fun toNotaEntity() : NotaEntity{
-        return NotaEntity(
-            titulo = titulo,
-            descricao = descricao,
-            imagemUrl = imagemUrl,
-            cor = cor,
-            data = data
-        )
-    }
-}
+    val imagemUrl: String,
+    val data: String,
+    val cor: Int
+)

@@ -20,12 +20,12 @@ interface NotaDao {
     fun getAllNotes() : List<NotaEntity>
 
     @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY titulo DESC")
-    fun getNotesOrderTitle(search: String) : List<NotaEntity>
+    fun getNotesOrderTitle(search: String) : Flow<List<NotaEntity>>
 
     @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY cor DESC")
-    fun getNotesOrderColor(search: String) : List<NotaEntity>
+    fun getNotesOrderColor(search: String) : Flow<List<NotaEntity>>
 
     @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY data DESC")
-    fun getNotesOrderDate(search: String) : List<NotaEntity>
+    fun getNotesOrderDate(search: String) : Flow<List<NotaEntity>>
 
 }

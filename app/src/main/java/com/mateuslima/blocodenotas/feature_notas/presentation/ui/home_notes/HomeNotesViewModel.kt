@@ -9,10 +9,7 @@ import com.mateuslima.blocodenotas.feature_notas.domain.usecase.GetNotesOrderDat
 import com.mateuslima.blocodenotas.feature_notas.domain.usecase.GetNotesOrderTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,16 +23,17 @@ class HomeNotesViewModel @Inject constructor(
 ) : ViewModel() {
 
     val pesquisa = MutableStateFlow("")
+    val ordemSelecionada = notasPreferences.ordemNota
 
     val listaNotas = combine(pesquisa, notasPreferences.ordemNota){ search, ordem ->
         Wrapper(search, ordem)
-    }.mapLatest { (search, ordem) ->
+    }.flatMapLatest { (search, ordem) ->
         when(ordem){
-            NotasPreferences.OrganizarNota.TITULO -> getNotesOrderTitleUseCase.execute(search).first()
-            NotasPreferences.OrganizarNota.DATA -> getNotesOrderDateUseCase.execute(search).first()
-            NotasPreferences.OrganizarNota.COR -> getNotesOrderColorUseCase.execute(search).first()
+            NotasPreferences.OrganizarNota.TITULO -> getNotesOrderTitleUseCase.execute(search)
+            NotasPreferences.OrganizarNota.DATA -> getNotesOrderDateUseCase.execute(search)
+            NotasPreferences.OrganizarNota.COR -> getNotesOrderColorUseCase.execute(search)
         }
-    }.asLiveData()
+    }.map { it.map { it.toNota() } }.asLiveData()
 
     fun organizarPorTitulo() = viewModelScope.launch{
         notasPreferences.atualizarOrdem(NotasPreferences.OrganizarNota.TITULO)

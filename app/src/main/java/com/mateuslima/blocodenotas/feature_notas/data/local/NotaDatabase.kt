@@ -28,12 +28,12 @@ abstract class NotaDatabase : RoomDatabase() {
 
             applicationScope.launch {
 
-                dao.get().addNota(Nota(titulo = "Titulo1", descricao = "descricao").toNotaEntity())
-                dao.get().addNota(Nota(titulo = "Titulo2", descricao = "descricao").toNotaEntity())
-                dao.get().addNota(Nota(titulo = "Titulo3", descricao = "descricao").toNotaEntity())
-                dao.get().addNota(Nota(titulo = "Titulo4", descricao = "descricao").toNotaEntity())
-                dao.get().addNota(Nota(titulo = "Titulo5", descricao = "descricao").toNotaEntity())
-                dao.get().addNota(Nota(titulo = "Titulo6", descricao = "descricao").toNotaEntity())
+                dao.get().addNota(NotaEntity(titulo = "Titulo1", descricao = "descricao"))
+                dao.get().addNota(NotaEntity(titulo = "Titulo2", descricao = "descricao"))
+                dao.get().addNota(NotaEntity(titulo = "Titulo3", descricao = "descricao"))
+                dao.get().addNota(NotaEntity(titulo = "Titulo4", descricao = "descricao"))
+                dao.get().addNota(NotaEntity(titulo = "Titulo5", descricao = "descricao"))
+                dao.get().addNota(NotaEntity(titulo = "Titulo6", descricao = "descricao"))
 
             }
 
