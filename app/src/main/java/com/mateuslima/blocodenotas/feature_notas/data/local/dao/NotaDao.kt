@@ -19,13 +19,13 @@ interface NotaDao {
     @Query("SELECT * FROM nota_table")
     fun getAllNotes() : List<NotaEntity>
 
-    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY titulo DESC")
+    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY titulo ASC")
     fun getNotesOrderTitle(search: String) : Flow<List<NotaEntity>>
 
-    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY cor DESC")
+    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY cor ASC")
     fun getNotesOrderColor(search: String) : Flow<List<NotaEntity>>
 
-    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY data DESC")
+    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY data ASC")
     fun getNotesOrderDate(search: String) : Flow<List<NotaEntity>>
 
 }

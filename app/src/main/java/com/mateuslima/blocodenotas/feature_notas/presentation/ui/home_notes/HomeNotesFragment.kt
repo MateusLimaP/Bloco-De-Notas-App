@@ -49,7 +49,6 @@ class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.N
 
         viewModel.listaNotas.observe(viewLifecycleOwner){ listaNota ->
             adapter.submitList(listaNota)
-            listaNota.forEach { nota -> println("nota = ${nota.titulo}") }
         }
         binding.recyclerNotas.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

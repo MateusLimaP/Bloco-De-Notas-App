@@ -42,8 +42,8 @@ class NotasAdapter(
 
             Glide.with(root.context).load(nota.imagemUrl).into(imageNota)
 
-            if (nota.imagemUrl.isEmpty()) imageNota.visibility = View.GONE
-            else imageNota.visibility = View.VISIBLE
+            if (nota.imagemUrl.isEmpty()) cardImageNota.visibility = View.GONE
+            else cardImageNota.visibility = View.VISIBLE
 
 
         }
