@@ -6,7 +6,9 @@ import androidx.room.Room
 import com.mateuslima.blocodenotas.feature_notas.data.local.NotaDatabase
 import com.mateuslima.blocodenotas.feature_notas.data.local.dao.NotaDao
 import com.mateuslima.blocodenotas.feature_notas.data.remote.FotoPixabayApi
+import com.mateuslima.blocodenotas.feature_notas.data.repository.FotosRepositoryImp
 import com.mateuslima.blocodenotas.feature_notas.data.repository.NotasRepositoryImp
+import com.mateuslima.blocodenotas.feature_notas.domain.repository.FotosRepository
 import com.mateuslima.blocodenotas.feature_notas.domain.repository.NotasRepository
 import dagger.Module
 import dagger.Provides
@@ -65,5 +67,11 @@ object AppModule {
     @Provides
     fun provideFotoPixabayApi(retrofit: Retrofit) : FotoPixabayApi{
         return retrofit.create(FotoPixabayApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFotosRepository(fotosRepository: FotosRepositoryImp) : FotosRepository{
+        return fotosRepository
     }
 }

@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mateuslima.blocodenotas.BuildConfig
 import com.mateuslima.blocodenotas.R
@@ -140,7 +141,7 @@ BottomSheetFoto.BottomSheetFotoListener{
 
 
     override fun internetSelecionada() {
-
+        findNavController().navigate(HomeNotesFragmentDirections.actionHomeNotesFragmentToSelecaoFotoFragment())
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
