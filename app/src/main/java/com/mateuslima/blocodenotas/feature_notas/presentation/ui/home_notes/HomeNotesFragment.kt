@@ -1,21 +1,42 @@
 package com.mateuslima.blocodenotas.feature_notas.presentation.ui.home_notes
 
+import android.Manifest
+import android.app.Activity
+import android.content.ContentValues
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.annotation.RequiresApi
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mateuslima.blocodenotas.BuildConfig
 import com.mateuslima.blocodenotas.R
+import com.mateuslima.blocodenotas.core.util.UriUtils
 import com.mateuslima.blocodenotas.core.util.setOnQueryTextChange
 import com.mateuslima.blocodenotas.databinding.FragmentHomeNotesBinding
 import com.mateuslima.blocodenotas.feature_notas.data.local.preferences.NotasPreferences
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.NotasAdapter
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetFoto
+import com.mateuslima.blocodenotas.feature_notas.presentation.util.NotasDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 @AndroidEntryPoint
 class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.NotasAdapterListener,
@@ -49,20 +70,48 @@ BottomSheetFoto.BottomSheetFotoListener{
         binding.searchview.setOnQueryTextChange { search -> viewModel.pesquisa.value = search }
 
         val adapter = NotasAdapter(this)
-
         viewModel.listaNotas.observe(viewLifecycleOwner){ listaNota ->
             adapter.submitList(listaNota)
         }
         binding.recyclerNotas.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             this.adapter = adapter
-            setHasFixedSize(true)
         }
+
 
         binding.imagePerfil.setOnClickListener {
-            BottomSheetFoto(requireContext(), this).show()
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
+                launchWritePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            else BottomSheetFoto(requireContext(), this).show()  // scope storage
         }
 
+    }
+
+    private val launchWritePermission = registerForActivityResult(RequestPermission()){ permitido ->
+        if (permitido) BottomSheetFoto(requireContext(), this).show()
+        else showDialogPermissaoEscrita()
+    }
+
+    private fun showDialogPermissaoEscrita(){
+        NotasDialog.permissaoEscritaGaleria(requireContext(), launchWritePermission)
+    }
+
+    private val launchCamera = registerForActivityResult(StartActivityForResult()){ response ->
+        if (response.resultCode == Activity.RESULT_OK){
+            val imagemBitmap = response.data?.extras?.get("data") as Bitmap
+            val caminhoUri: Uri
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) caminhoUri = saveImageInQ(imagemBitmap)
+            else caminhoUri = saveTheImageLegacyStyle(imagemBitmap)
+
+            binding.imagePerfil.setImageURI(caminhoUri)
+        }
+    }
+
+    private val launchGaleria = registerForActivityResult(StartActivityForResult()){response ->
+        if (response.resultCode == Activity.RESULT_OK){
+            val caminhoUri = response.data?.data
+            binding.imagePerfil.setImageURI(caminhoUri)
+        }
     }
 
     override fun onDestroyView() {
@@ -79,14 +128,54 @@ BottomSheetFoto.BottomSheetFotoListener{
     }
 
     override fun cameraSelecionada() {
-
+        val intentCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        launchCamera.launch(intentCamera)
     }
 
     override fun galeriaSelecionada() {
+        val intentGaleria = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        launchGaleria.launch(intentGaleria)
 
     }
 
+
     override fun internetSelecionada() {
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun saveImageInQ(bitmap: Bitmap):Uri {
+        val filename = "IMG_Img.jpg"
+        var fos: OutputStream? = null
+        var imageUri: Uri? = null
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            put(MediaStore.Video.Media.IS_PENDING, 1)
+        }
+
+        //use application context to get contentResolver
+        val contentResolver = requireContext().contentResolver
+
+        contentResolver.also { resolver ->
+            imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            fos = imageUri?.let { resolver.openOutputStream(it) }
+        }
+
+        fos?.use { bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it) }
+
+        contentValues.clear()
+        contentValues.put(MediaStore.Video.Media.IS_PENDING, 0)
+        contentResolver.update(imageUri!!, contentValues, null, null)
+
+        return imageUri!!
+    }
+
+    fun saveTheImageLegacyStyle(bitmap:Bitmap) : Uri {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "image.jpeg",null)
+        return Uri.parse(path)
     }
 }

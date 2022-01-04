@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.mateuslima.blocodenotas.feature_notas.data.local.NotaDatabase
 import com.mateuslima.blocodenotas.feature_notas.data.local.dao.NotaDao
+import com.mateuslima.blocodenotas.feature_notas.data.remote.FotoPixabayApi
 import com.mateuslima.blocodenotas.feature_notas.data.repository.NotasRepositoryImp
 import com.mateuslima.blocodenotas.feature_notas.domain.repository.NotasRepository
 import dagger.Module
@@ -14,6 +15,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -47,5 +50,20 @@ object AppModule {
     @Provides
     fun provideCoroutineScope() : CoroutineScope{
         return CoroutineScope(SupervisorJob())
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofitPixabay() : Retrofit{
+        return Retrofit.Builder()
+            .baseUrl(FotoPixabayApi.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFotoPixabayApi(retrofit: Retrofit) : FotoPixabayApi{
+        return retrofit.create(FotoPixabayApi::class.java)
     }
 }

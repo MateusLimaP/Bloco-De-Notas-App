@@ -22,4 +22,9 @@
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
