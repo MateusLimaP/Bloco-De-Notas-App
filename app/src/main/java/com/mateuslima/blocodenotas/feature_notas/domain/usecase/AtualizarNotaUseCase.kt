@@ -9,7 +9,7 @@ class AtualizarNotaUseCase @Inject constructor(
     private val repository: NotasRepository
 ) {
 
-    suspend fun execute(nota: NotaEntity){
+    suspend fun execute(nota: Nota){
         repository.atualizar(nota)
     }
 }

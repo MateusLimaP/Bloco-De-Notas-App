@@ -18,18 +18,21 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.mateuslima.blocodenotas.BuildConfig
 import com.mateuslima.blocodenotas.R
 import com.mateuslima.blocodenotas.core.util.UriUtils
 import com.mateuslima.blocodenotas.core.util.setOnQueryTextChange
 import com.mateuslima.blocodenotas.databinding.FragmentHomeNotesBinding
-import com.mateuslima.blocodenotas.feature_notas.data.local.preferences.NotasPreferences
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
+import com.mateuslima.blocodenotas.feature_notas.domain.repository.NotasPrefsRepository
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.NotasAdapter
+import com.mateuslima.blocodenotas.feature_notas.presentation.ui.selecao_foto.SelecaoFotoFragment
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetFoto
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.NotasDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +49,7 @@ BottomSheetFoto.BottomSheetFotoListener{
     private var _binding: FragmentHomeNotesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeNotesViewModel by viewModels()
+    companion object{ const val CHAVE_IMAGEM_URL_SELECIONADA = "imagemurl"}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,10 +66,18 @@ BottomSheetFoto.BottomSheetFotoListener{
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             val ordem = viewModel.ordemSelecionada.first()
             when (ordem){
-                NotasPreferences.OrganizarNota.TITULO -> binding.radioTitulo.isChecked = true
-                NotasPreferences.OrganizarNota.COR -> binding.radioCor.isChecked = true
-                NotasPreferences.OrganizarNota.DATA -> binding.radioData.isChecked = true
+                NotasPrefsRepository.OrganizarNota.TITULO -> binding.radioTitulo.isChecked = true
+                NotasPrefsRepository.OrganizarNota.COR -> binding.radioCor.isChecked = true
+                NotasPrefsRepository.OrganizarNota.DATA -> binding.radioData.isChecked = true
             }
+        }
+
+        viewModel.fotoPerfil.observe(viewLifecycleOwner){url ->
+            Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(binding.imagePerfil)
         }
 
         binding.searchview.setOnQueryTextChange { search -> viewModel.pesquisa.value = search }
@@ -86,6 +98,8 @@ BottomSheetFoto.BottomSheetFotoListener{
             else BottomSheetFoto(requireContext(), this).show()  // scope storage
         }
 
+
+
     }
 
     private val launchWritePermission = registerForActivityResult(RequestPermission()){ permitido ->
@@ -104,14 +118,17 @@ BottomSheetFoto.BottomSheetFotoListener{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) caminhoUri = saveImageInQ(imagemBitmap)
             else caminhoUri = saveTheImageLegacyStyle(imagemBitmap)
 
-            binding.imagePerfil.setImageURI(caminhoUri)
+            val caminhoCompleto = UriUtils.getPathFromUri(requireContext(), caminhoUri)
+            viewModel.salvarFotoPerfil(caminhoCompleto)
         }
     }
 
     private val launchGaleria = registerForActivityResult(StartActivityForResult()){response ->
         if (response.resultCode == Activity.RESULT_OK){
             val caminhoUri = response.data?.data
-            binding.imagePerfil.setImageURI(caminhoUri)
+
+            val caminhoCompleto = UriUtils.getPathFromUri(requireContext(), caminhoUri)
+            viewModel.salvarFotoPerfil(caminhoCompleto)
         }
     }
 
@@ -142,6 +159,11 @@ BottomSheetFoto.BottomSheetFotoListener{
 
     override fun internetSelecionada() {
         findNavController().navigate(HomeNotesFragmentDirections.actionHomeNotesFragmentToSelecaoFotoFragment())
+        // receber dados do fragment selecao fotos
+        setFragmentResultListener(SelecaoFotoFragment::class.java.name){ chave, bundle ->
+            val imagemUrl = bundle.getString(CHAVE_IMAGEM_URL_SELECIONADA) ?: ""
+            viewModel.salvarFotoPerfil(imagemUrl)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)

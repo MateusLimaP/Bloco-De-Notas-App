@@ -7,8 +7,10 @@ import com.mateuslima.blocodenotas.feature_notas.data.local.NotaDatabase
 import com.mateuslima.blocodenotas.feature_notas.data.local.dao.NotaDao
 import com.mateuslima.blocodenotas.feature_notas.data.remote.FotoPixabayApi
 import com.mateuslima.blocodenotas.feature_notas.data.repository.FotosRepositoryImp
+import com.mateuslima.blocodenotas.feature_notas.data.repository.NotasPrefsRepositoryImp
 import com.mateuslima.blocodenotas.feature_notas.data.repository.NotasRepositoryImp
 import com.mateuslima.blocodenotas.feature_notas.domain.repository.FotosRepository
+import com.mateuslima.blocodenotas.feature_notas.domain.repository.NotasPrefsRepository
 import com.mateuslima.blocodenotas.feature_notas.domain.repository.NotasRepository
 import dagger.Module
 import dagger.Provides
@@ -73,5 +75,11 @@ object AppModule {
     @Provides
     fun provideFotosRepository(fotosRepository: FotosRepositoryImp) : FotosRepository{
         return fotosRepository
+    }
+
+    @Singleton
+    @Provides
+    fun provideNotasPrefsRepository(notasPrefsRepository: NotasPrefsRepositoryImp) : NotasPrefsRepository{
+        return notasPrefsRepository
     }
 }
