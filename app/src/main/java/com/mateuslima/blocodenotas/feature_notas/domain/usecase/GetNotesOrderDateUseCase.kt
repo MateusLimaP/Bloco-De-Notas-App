@@ -11,7 +11,7 @@ class GetNotesOrderDateUseCase @Inject constructor(
     private val repository: NotasRepository
 ) {
 
-    fun execute(pesquisa: String) : Flow<List<NotaEntity>>{
+    fun execute(pesquisa: String) : Flow<List<Nota>>{
         return repository.getNotesOrderDate(pesquisa)
     }
 }

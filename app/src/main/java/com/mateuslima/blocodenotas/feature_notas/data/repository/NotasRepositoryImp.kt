@@ -14,28 +14,29 @@ class NotasRepositoryImp @Inject constructor(
     val dao: NotaDao
 ) : NotasRepository {
 
-    override suspend fun add(nota: NotaEntity) {
-        dao.addNota(nota)
+    override suspend fun add(nota: Nota) {
+        val notaEntity = NotaEntity.copyNota(nota)
+        dao.addNota(notaEntity)
     }
 
-    override suspend fun remover(nota: NotaEntity) {
-        dao.removerNota(nota)
+    override suspend fun remover(nota: Nota) {
+        dao.removerNota(NotaEntity.copyNota(nota))
     }
 
-    override suspend fun atualizar(nota: NotaEntity) {
-        dao.atualizarNota(nota)
+    override suspend fun atualizar(nota: Nota) {
+        dao.atualizarNota(NotaEntity.copyNota(nota))
     }
 
-    override fun getNotesOrderTitle(search: String): Flow<List<NotaEntity>>{
-        return dao.getNotesOrderTitle(search)
+    override fun getNotesOrderTitle(search: String): Flow<List<Nota>>{
+        return dao.getNotesOrderTitle(search).map { it.map { it.toNota() } }
     }
 
-    override fun getNotesOrderColor(search: String): Flow<List<NotaEntity>>{
-        return dao.getNotesOrderColor(search)
+    override fun getNotesOrderColor(search: String): Flow<List<Nota>>{
+        return dao.getNotesOrderColor(search).map { it.map { it.toNota() } }
     }
 
-    override fun getNotesOrderDate(search: String): Flow<List<NotaEntity>> {
-        return dao.getNotesOrderDate(search)
+    override fun getNotesOrderDate(search: String): Flow<List<Nota>> {
+        return dao.getNotesOrderDate(search).map { it.map { it.toNota() } }
     }
 
 }

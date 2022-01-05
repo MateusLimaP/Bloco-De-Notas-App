@@ -33,7 +33,7 @@ class HomeNotesViewModel @Inject constructor(
             NotasPreferences.OrganizarNota.DATA -> getNotesOrderDateUseCase.execute(search)
             NotasPreferences.OrganizarNota.COR -> getNotesOrderColorUseCase.execute(search)
         }
-    }.map { it.map { it.toNota() } }.asLiveData()
+    }.asLiveData()
 
     fun organizarPorTitulo() = viewModelScope.launch{
         notasPreferences.atualizarOrdem(NotasPreferences.OrganizarNota.TITULO)

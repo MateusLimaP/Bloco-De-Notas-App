@@ -6,10 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface NotasRepository {
 
-    suspend fun add(nota: NotaEntity)
-    suspend fun remover(nota: NotaEntity)
-    suspend fun atualizar(nota: NotaEntity)
-    fun getNotesOrderTitle(search: String) : Flow<List<NotaEntity>>
-    fun getNotesOrderColor(search: String) : Flow<List<NotaEntity>>
-    fun getNotesOrderDate(search: String) : Flow<List<NotaEntity>>
+    suspend fun add(nota: Nota)
+    suspend fun remover(nota: Nota)
+    suspend fun atualizar(nota: Nota)
+    fun getNotesOrderTitle(search: String) : Flow<List<Nota>>
+    fun getNotesOrderColor(search: String) : Flow<List<Nota>>
+    fun getNotesOrderDate(search: String) : Flow<List<Nota>>
 }

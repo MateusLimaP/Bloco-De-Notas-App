@@ -26,4 +26,15 @@ data class NotaEntity(
             cor = cor
         )
     }
+    companion object{
+        fun copyNota(nota: Nota) : NotaEntity{
+            return NotaEntity(
+                titulo = nota.titulo,
+                descricao = nota.descricao,
+                imagemUrl = nota.imagemUrl,
+                cor = nota.cor
+            )
+        }
+    }
+
 }
