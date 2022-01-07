@@ -12,7 +12,7 @@ data class Nota(
     val titulo: String,
     val descricao: String,
     val imagemUrl: String,
-    val data: String,
+    val data: String = DateFormat.getDateTimeInstance().format(Calendar.getInstance().time),
     val corHex: String,
     val id: Int = 0
 ) : Parcelable

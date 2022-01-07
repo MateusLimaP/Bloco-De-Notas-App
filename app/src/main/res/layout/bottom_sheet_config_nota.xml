@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_semi_dark"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_cor"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/text_deletar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Deletar Nota"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/text_copiar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableStart="@drawable/ic_copy"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Fazer uma cópia"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/text_compartilhar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableStart="@drawable/ic_share"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Compartilhar"
+        android:textSize="14sp" />
+
+</LinearLayout>

@@ -74,8 +74,7 @@ BottomSheetFoto.BottomSheetFotoListener{
                 titulo = binding.editTitulo.text.toString(),
                 descricao = binding.editDescricao.text.toString(),
                 imagemUrl = viewModel.imagemNota,
-                corHex = viewModel.corNota,
-                data = ""
+                corHex = viewModel.corNota
             ))
             findNavController().popBackStack()
         }
@@ -137,9 +136,11 @@ BottomSheetFoto.BottomSheetFotoListener{
     }
 
     override fun internetSelecionada() {
+        // navegar para selecao foto fragment
         findNavController().navigate(AddEditNotasFragmentDirections
             .actionAddEditNotasFragmentToSelecaoFotoFragment(AddEditNotasFragment::class.java.name))
 
+        // receber imagem da selecao foto fragment
         setFragmentResultListener(SelecaoFotoFragment::class.java.name){chave, bundle ->
             val imagemUrl = bundle.getString(CHAVE_IMAGEM_URL_NOTAS) ?: ""
             viewModel.setImagemNotaUrl(imagemUrl)

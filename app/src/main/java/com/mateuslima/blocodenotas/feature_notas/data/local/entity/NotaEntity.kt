@@ -34,6 +34,7 @@ data class NotaEntity(
                 descricao = nota.descricao,
                 imagemUrl = nota.imagemUrl,
                 corHex = nota.corHex,
+                data = nota.data,
                 id = nota.id
             )
         }

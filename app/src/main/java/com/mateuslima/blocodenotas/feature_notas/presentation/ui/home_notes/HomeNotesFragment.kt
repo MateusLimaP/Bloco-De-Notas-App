@@ -34,6 +34,7 @@ import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
 import com.mateuslima.blocodenotas.feature_notas.domain.repository.NotasPrefsRepository
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.NotasAdapter
 import com.mateuslima.blocodenotas.feature_notas.presentation.ui.selecao_foto.SelecaoFotoFragment
+import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetConfigNota
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetFoto
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.NotasDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,7 @@ import java.io.OutputStream
 
 @AndroidEntryPoint
 class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.NotasAdapterListener,
-BottomSheetFoto.BottomSheetFotoListener{
+BottomSheetFoto.BottomSheetFotoListener, BottomSheetConfigNota.BottomSheetConfigNotaListener{
 
     private var _binding: FragmentHomeNotesBinding? = null
     private val binding get() = _binding!!
@@ -149,7 +150,7 @@ BottomSheetFoto.BottomSheetFotoListener{
     }
 
     override fun onLongClickNota(nota: Nota) {
-
+        BottomSheetConfigNota(requireContext(), nota,this).show()
     }
 
     override fun cameraSelecionada() {
@@ -172,5 +173,25 @@ BottomSheetFoto.BottomSheetFotoListener{
             val imagemUrl = bundle.getString(CHAVE_IMAGEM_URL_SELECIONADA) ?: ""
             viewModel.salvarFotoPerfil(imagemUrl)
         }
+    }
+
+    override fun atualizarCor(corHex: String, nota: Nota) {
+        viewModel.atualizarCorNota(corHex, nota)
+    }
+
+    override fun compartilharNota(nota: Nota) {
+        val intentCompartilhar = Intent(Intent.ACTION_SEND)
+        intentCompartilhar.setType("text/plain")
+        intentCompartilhar.putExtra(Intent.EXTRA_SUBJECT, nota.titulo)
+        intentCompartilhar.putExtra(Intent.EXTRA_TEXT, nota.descricao)
+        startActivity(Intent.createChooser(intentCompartilhar, "Compartilhar"))
+    }
+
+    override fun deletarNota(nota: Nota) {
+        viewModel.deletarNota(nota)
+    }
+
+    override fun copiarNota(nota: Nota) {
+        viewModel.copiarNota(nota)
     }
 }
