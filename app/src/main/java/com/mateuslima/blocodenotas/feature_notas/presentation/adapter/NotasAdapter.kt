@@ -1,5 +1,7 @@
 package com.mateuslima.blocodenotas.feature_notas.presentation.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +46,8 @@ class NotasAdapter(
 
             if (nota.imagemUrl.isEmpty()) cardImageNota.visibility = View.GONE
             else cardImageNota.visibility = View.VISIBLE
+
+            root.backgroundTintList = ColorStateList.valueOf(Color.parseColor(nota.corHex))
 
 
         }

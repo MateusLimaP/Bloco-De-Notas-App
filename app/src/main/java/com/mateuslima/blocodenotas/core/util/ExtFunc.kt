@@ -1,5 +1,6 @@
 package com.mateuslima.blocodenotas.core.util
 
+import android.content.res.Resources
 import androidx.appcompat.widget.SearchView
 
 inline fun SearchView.setOnQueryTextChange(crossinline search: (String) -> Unit){
@@ -29,3 +30,5 @@ inline fun SearchView.setOnQueryTexSubmit(crossinline search: (String) -> Unit){
 
     })
 }
+
+val Int.dp : Int get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()

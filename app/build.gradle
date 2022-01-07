@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-parcelize'
     id 'com.google.secrets_gradle_plugin' version '0.4'
 }
 
@@ -109,4 +110,7 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
+
+    // Fresco
+    implementation 'com.facebook.fresco:fresco:2.6.0'
 }

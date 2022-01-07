@@ -1,5 +1,6 @@
 package com.mateuslima.blocodenotas.feature_notas.presentation.ui.selecao_foto
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -18,6 +19,7 @@ import com.mateuslima.blocodenotas.databinding.FragmentSelecaoFotoBinding
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Foto
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.FotosAdapter
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.NotasLoadStateAdapter
+import com.mateuslima.blocodenotas.feature_notas.presentation.ui.add_edit_notas.AddEditNotasFragment
 import com.mateuslima.blocodenotas.feature_notas.presentation.ui.home_notes.HomeNotesFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -61,9 +63,17 @@ class SelecaoFotoFragment : Fragment(R.layout.fragment_selecao_foto), FotosAdapt
     }
 
     override fun onClickFoto(foto: Foto) {
-        // enviar dados para home notes fragment
-        setFragmentResult(this::class.java.name,
-            bundleOf(HomeNotesFragment.CHAVE_IMAGEM_URL_SELECIONADA to foto.imagemPequenaUrl))
+        if (viewModel.backStackFragmentName == HomeNotesFragment::class.java.name){
+            // enviar dados para home notes fragment
+            setFragmentResult(this::class.java.name,
+                bundleOf(HomeNotesFragment.CHAVE_IMAGEM_URL_SELECIONADA to foto.imagemPequenaUrl))
+        }
+        if (viewModel.backStackFragmentName == AddEditNotasFragment::class.java.name){
+            // enviar dados para add_edit notas fragment
+            setFragmentResult(this::class.java.name,
+                bundleOf(AddEditNotasFragment.CHAVE_IMAGEM_URL_NOTAS to foto.imagemGrandeUrl))
+        }
+
         findNavController().popBackStack() // retornar para pagina anterior
 
     }

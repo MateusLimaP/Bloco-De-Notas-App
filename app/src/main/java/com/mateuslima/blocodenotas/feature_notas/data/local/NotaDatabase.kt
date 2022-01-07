@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
 
-@Database(entities = [NotaEntity::class], version = 1)
+@Database(entities = [NotaEntity::class], version = 2)
 abstract class NotaDatabase : RoomDatabase() {
 
     abstract fun notaDao() : NotaDao

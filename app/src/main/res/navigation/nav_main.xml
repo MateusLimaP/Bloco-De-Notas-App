@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/homeNotesFragment">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/homeNotesFragment"
+        android:id="@+id/nav_home"
         tools:layout="@layout/fragment_home_notes"
         android:name="com.mateuslima.blocodenotas.feature_notas.presentation.ui.home_notes.HomeNotesFragment"
         android:label="HomeNotesFragment" >
@@ -17,10 +17,39 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeNotesFragment_to_addEditNotasFragment"
+            app:destination="@id/nav_add_editnota"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/selecaoFotoFragment"
         tools:layout="@layout/fragment_selecao_foto"
         android:name="com.mateuslima.blocodenotas.feature_notas.presentation.ui.selecao_foto.SelecaoFotoFragment"
-        android:label="SelecaoFotoFragment" />
+        android:label="SelecaoFotoFragment" >
+        <argument
+            android:name="fragmentname"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_add_editnota"
+        tools:layout="@layout/fragment_add_edit_notas"
+        android:name="com.mateuslima.blocodenotas.feature_notas.presentation.ui.add_edit_notas.AddEditNotasFragment"
+        android:label="AddEditNotasFragment" >
+
+        <argument
+            android:name="nota"
+            app:argType="com.mateuslima.blocodenotas.feature_notas.domain.model.Nota"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_addEditNotasFragment_to_selecaoFotoFragment"
+            app:destination="@id/selecaoFotoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 </navigation>

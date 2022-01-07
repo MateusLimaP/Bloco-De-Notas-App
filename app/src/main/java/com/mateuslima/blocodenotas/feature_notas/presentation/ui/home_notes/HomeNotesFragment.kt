@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.mateuslima.blocodenotas.BuildConfig
 import com.mateuslima.blocodenotas.R
+import com.mateuslima.blocodenotas.core.util.ImageUtil
 import com.mateuslima.blocodenotas.core.util.UriUtils
 import com.mateuslima.blocodenotas.core.util.setOnQueryTextChange
 import com.mateuslima.blocodenotas.databinding.FragmentHomeNotesBinding
@@ -98,6 +99,11 @@ BottomSheetFoto.BottomSheetFotoListener{
             else BottomSheetFoto(requireContext(), this).show()  // scope storage
         }
 
+        binding.fabAdd.setOnClickListener {
+            findNavController().navigate(HomeNotesFragmentDirections
+                .actionHomeNotesFragmentToAddEditNotasFragment(null))
+        }
+
 
 
     }
@@ -115,8 +121,8 @@ BottomSheetFoto.BottomSheetFotoListener{
         if (response.resultCode == Activity.RESULT_OK){
             val imagemBitmap = response.data?.extras?.get("data") as Bitmap
             val caminhoUri: Uri
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) caminhoUri = saveImageInQ(imagemBitmap)
-            else caminhoUri = saveTheImageLegacyStyle(imagemBitmap)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) caminhoUri = ImageUtil.saveImageInQ(requireContext(), imagemBitmap)
+            else caminhoUri = ImageUtil.saveTheImageLegacyStyle(requireContext(), imagemBitmap)
 
             val caminhoCompleto = UriUtils.getPathFromUri(requireContext(), caminhoUri)
             viewModel.salvarFotoPerfil(caminhoCompleto)
@@ -138,7 +144,8 @@ BottomSheetFoto.BottomSheetFotoListener{
     }
 
     override fun onClickNota(nota: Nota) {
-
+        findNavController().navigate(HomeNotesFragmentDirections
+            .actionHomeNotesFragmentToAddEditNotasFragment(nota))
     }
 
     override fun onLongClickNota(nota: Nota) {
@@ -158,47 +165,12 @@ BottomSheetFoto.BottomSheetFotoListener{
 
 
     override fun internetSelecionada() {
-        findNavController().navigate(HomeNotesFragmentDirections.actionHomeNotesFragmentToSelecaoFotoFragment())
+        findNavController().navigate(HomeNotesFragmentDirections
+            .actionHomeNotesFragmentToSelecaoFotoFragment(HomeNotesFragment::class.java.name))
         // receber dados do fragment selecao fotos
         setFragmentResultListener(SelecaoFotoFragment::class.java.name){ chave, bundle ->
             val imagemUrl = bundle.getString(CHAVE_IMAGEM_URL_SELECIONADA) ?: ""
             viewModel.salvarFotoPerfil(imagemUrl)
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    fun saveImageInQ(bitmap: Bitmap):Uri {
-        val filename = "IMG_Img.jpg"
-        var fos: OutputStream? = null
-        var imageUri: Uri? = null
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-            put(MediaStore.Video.Media.IS_PENDING, 1)
-        }
-
-        //use application context to get contentResolver
-        val contentResolver = requireContext().contentResolver
-
-        contentResolver.also { resolver ->
-            imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-            fos = imageUri?.let { resolver.openOutputStream(it) }
-        }
-
-        fos?.use { bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it) }
-
-        contentValues.clear()
-        contentValues.put(MediaStore.Video.Media.IS_PENDING, 0)
-        contentResolver.update(imageUri!!, contentValues, null, null)
-
-        return imageUri!!
-    }
-
-    fun saveTheImageLegacyStyle(bitmap:Bitmap) : Uri {
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "image.jpeg",null)
-        return Uri.parse(path)
     }
 }

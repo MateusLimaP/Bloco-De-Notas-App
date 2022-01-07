@@ -7,8 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <!--Cores exibidas no recycler cores-->
+    <color name="azul">#2196F3</color>
+    <color name="amarelo">#FFEB3B</color>
+    <color name="roxo">#9C27B0</color>
+    <color name="rosa">#E91E63</color>
     <color name="laranja">#f17e14</color>
-    <color name="cinza">#AAAAAA</color>
+    <color name="azul_marinho">#00BCD4</color>
+    <color name="vermelho">#D82618</color>
+
     <color name="bg_dark">#0e121b</color>
     <color name="bg_semi_dark">#1a212f</color>
+
 </resources>
