@@ -14,8 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditNotasViewModel @Inject constructor(
-    private val addNotaUseCase: AddNotaUseCase,
-    private val atualizarNotaUseCase: AtualizarNotaUseCase,
     private val saveOrUpdateNoteUseCase: SaveOrUpdateNoteUseCase,
     private val args: SavedStateHandle
 ) : ViewModel() {

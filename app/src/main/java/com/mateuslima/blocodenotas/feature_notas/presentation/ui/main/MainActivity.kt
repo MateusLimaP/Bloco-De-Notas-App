@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(navController.currentDestination?.id == R.id.nav_home){
+        if(navController.currentDestination?.id == R.id.homeNotesFragment){
             NotasDialog.sairApp(this){sair -> if (sair) finish()}
         }else super.onBackPressed()
 

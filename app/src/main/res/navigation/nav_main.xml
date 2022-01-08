@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/homeNotesFragment">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/homeNotesFragment"
         tools:layout="@layout/fragment_home_notes"
         android:name="com.mateuslima.blocodenotas.feature_notas.presentation.ui.home_notes.HomeNotesFragment"
         android:label="HomeNotesFragment" >
@@ -19,7 +19,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeNotesFragment_to_addEditNotasFragment"
-            app:destination="@id/nav_add_editnota"
+            app:destination="@id/addEditNotasFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -35,7 +35,7 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/nav_add_editnota"
+        android:id="@+id/addEditNotasFragment"
         tools:layout="@layout/fragment_add_edit_notas"
         android:name="com.mateuslima.blocodenotas.feature_notas.presentation.ui.add_edit_notas.AddEditNotasFragment"
         android:label="AddEditNotasFragment" >
