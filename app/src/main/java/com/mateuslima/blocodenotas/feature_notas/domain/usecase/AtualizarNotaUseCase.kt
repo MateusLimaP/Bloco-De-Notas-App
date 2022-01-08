@@ -9,7 +9,16 @@ class AtualizarNotaUseCase @Inject constructor(
     private val repository: NotasRepository
 ) {
 
-    suspend fun execute(nota: Nota){
+    suspend fun execute(nota: Nota): Result{
+        if (nota.titulo.isEmpty()) return Result.CampoTituloVazio
+        if (nota.descricao.isEmpty()) return Result.CampoDescricaoVazio
         repository.atualizar(nota)
+        return Result.Sucesso
+    }
+
+    sealed class Result{
+        object CampoTituloVazio: Result()
+        object CampoDescricaoVazio: Result()
+        object Sucesso: Result()
     }
 }

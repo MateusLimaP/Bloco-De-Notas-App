@@ -19,4 +19,13 @@ object NotasDialog {
             .setNegativeButton("Cancelar"){dialog,_ -> }
         dialog.show()
     }
+
+    fun sairApp(context: Context, sair: (Boolean) -> Unit){
+        val dialog = AlertDialog.Builder(context, R.style.AlertDialogTheme)
+            .setTitle("Sair App")
+            .setMessage("Gostaria de sair do aplicativo?")
+            .setPositiveButton("Sair"){_,_ -> sair.invoke(true)}
+            .setNegativeButton("Cancelar"){_,_ -> sair.invoke(false)}
+        dialog.show()
+    }
 }

@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mateuslima.blocodenotas.R
@@ -23,6 +24,8 @@ import com.mateuslima.blocodenotas.core.util.ImageUtil
 import com.mateuslima.blocodenotas.core.util.UriUtils
 import com.mateuslima.blocodenotas.databinding.FragmentAddEditNotasBinding
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
+import com.mateuslima.blocodenotas.feature_notas.domain.usecase.AddNotaUseCase
+import com.mateuslima.blocodenotas.feature_notas.domain.usecase.AtualizarNotaUseCase
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.CoresAdapter
 import com.mateuslima.blocodenotas.feature_notas.presentation.ui.selecao_foto.SelecaoFotoFragment
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetFoto
@@ -60,6 +63,22 @@ BottomSheetFoto.BottomSheetFotoListener{
 
         }
 
+        viewModel.addNotaEvent.observe(viewLifecycleOwner){event ->
+            when (event){
+                AddNotaUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = "Empty Field"
+                AddNotaUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
+                AddNotaUseCase.Result.Sucesso -> findNavController().popBackStack()
+            }
+        }
+
+        viewModel.atualizarNotaEvent.observe(viewLifecycleOwner){event ->
+            when (event){
+                AtualizarNotaUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = "Empty Field"
+                AtualizarNotaUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
+                AtualizarNotaUseCase.Result.Sucesso -> findNavController().popBackStack()
+            }
+        }
+
         binding.editTitulo.setText(viewModel.tituloNota)
         binding.editDescricao.setText(viewModel.descricaoNota)
 
@@ -76,7 +95,7 @@ BottomSheetFoto.BottomSheetFotoListener{
                 imagemUrl = viewModel.imagemNota,
                 corHex = viewModel.corNota
             ))
-            findNavController().popBackStack()
+
         }
 
 
