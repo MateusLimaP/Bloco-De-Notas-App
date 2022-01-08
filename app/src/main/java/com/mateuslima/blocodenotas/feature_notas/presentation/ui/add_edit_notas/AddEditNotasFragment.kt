@@ -26,6 +26,7 @@ import com.mateuslima.blocodenotas.databinding.FragmentAddEditNotasBinding
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
 import com.mateuslima.blocodenotas.feature_notas.domain.usecase.AddNotaUseCase
 import com.mateuslima.blocodenotas.feature_notas.domain.usecase.AtualizarNotaUseCase
+import com.mateuslima.blocodenotas.feature_notas.domain.usecase.SaveOrUpdateNoteUseCase
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.CoresAdapter
 import com.mateuslima.blocodenotas.feature_notas.presentation.ui.selecao_foto.SelecaoFotoFragment
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetFoto
@@ -63,7 +64,7 @@ BottomSheetFoto.BottomSheetFotoListener{
 
         }
 
-        viewModel.addNotaEvent.observe(viewLifecycleOwner){event ->
+        /*viewModel.addNotaEvent.observe(viewLifecycleOwner){event ->
             when (event){
                 AddNotaUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = "Empty Field"
                 AddNotaUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
@@ -77,6 +78,16 @@ BottomSheetFoto.BottomSheetFotoListener{
                 AtualizarNotaUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
                 AtualizarNotaUseCase.Result.Sucesso -> findNavController().popBackStack()
             }
+        }*/
+
+        viewModel.salvarNotaEvent.observe(viewLifecycleOwner){ event ->
+            when(event){
+                SaveOrUpdateNoteUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = "Empty Field"
+                SaveOrUpdateNoteUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
+                is SaveOrUpdateNoteUseCase.Result.NotaAtualizada -> findNavController().popBackStack()
+                is SaveOrUpdateNoteUseCase.Result.NotaSalva -> findNavController().popBackStack()
+            }
+
         }
 
         binding.editTitulo.setText(viewModel.tituloNota)
