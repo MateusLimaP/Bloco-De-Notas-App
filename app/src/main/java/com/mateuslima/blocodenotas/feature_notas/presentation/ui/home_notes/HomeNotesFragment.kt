@@ -2,21 +2,15 @@ package com.mateuslima.blocodenotas.feature_notas.presentation.ui.home_notes
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.annotation.RequiresApi
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -24,7 +18,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
-import com.mateuslima.blocodenotas.BuildConfig
 import com.mateuslima.blocodenotas.R
 import com.mateuslima.blocodenotas.core.util.ImageUtil
 import com.mateuslima.blocodenotas.core.util.UriUtils
@@ -39,10 +32,6 @@ import com.mateuslima.blocodenotas.feature_notas.presentation.util.BottomSheetFo
 import com.mateuslima.blocodenotas.feature_notas.presentation.util.NotasDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 
 @AndroidEntryPoint
 class HomeNotesFragment : Fragment(R.layout.fragment_home_notes), NotasAdapter.NotasAdapterListener,
@@ -86,6 +75,7 @@ BottomSheetFoto.BottomSheetFotoListener, BottomSheetConfigNota.BottomSheetConfig
 
         val adapter = NotasAdapter(this)
         viewModel.listaNotas.observe(viewLifecycleOwner){ listaNota ->
+            listaNota.forEach { nota -> println("nota = ${nota.titulo}") }
             adapter.submitList(listaNota)
         }
         binding.recyclerNotas.apply {
@@ -115,7 +105,7 @@ BottomSheetFoto.BottomSheetFotoListener, BottomSheetConfigNota.BottomSheetConfig
     }
 
     private fun showDialogPermissaoEscrita(){
-        NotasDialog.permissaoEscritaGaleria(requireContext(), launchWritePermission)
+        NotasDialog.permissaoEscrita(requireContext(), launchWritePermission)
     }
 
     private val launchCamera = registerForActivityResult(StartActivityForResult()){ response ->
@@ -184,7 +174,7 @@ BottomSheetFoto.BottomSheetFotoListener, BottomSheetConfigNota.BottomSheetConfig
         intentCompartilhar.setType("text/plain")
         intentCompartilhar.putExtra(Intent.EXTRA_SUBJECT, nota.titulo)
         intentCompartilhar.putExtra(Intent.EXTRA_TEXT, nota.descricao)
-        startActivity(Intent.createChooser(intentCompartilhar, "Compartilhar"))
+        startActivity(Intent.createChooser(intentCompartilhar, getString(R.string.compartilhar)))
     }
 
     override fun deletarNota(nota: Nota) {

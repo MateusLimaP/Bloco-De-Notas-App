@@ -30,7 +30,7 @@
                 android:theme="@style/SearchView"
                 app:iconifiedByDefault="false"
                 app:queryBackground="@android:color/transparent"
-                app:queryHint="Pesquisar" />
+                app:queryHint="@string/selecaofoto_pesquisar" />
 
         </LinearLayout>
 
@@ -67,7 +67,7 @@
         tools:visibility="visible"
         android:visibility="invisible"
         android:textSize="18sp"
-        android:text="Dados não puderam ser carregados =("/>
+        android:text="@string/selecaofoto_dados"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

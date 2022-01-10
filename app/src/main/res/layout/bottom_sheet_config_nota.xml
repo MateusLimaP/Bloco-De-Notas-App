@@ -21,11 +21,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:drawableStart="@drawable/ic_delete"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="Deletar Nota"
-        android:textSize="14sp" />
+        android:text="@string/bottomconfignota_deletar"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_delete" />
 
     <TextView
         android:id="@+id/text_copiar"
@@ -34,11 +34,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:drawableStart="@drawable/ic_copy"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="Fazer uma cópia"
-        android:textSize="14sp" />
+        android:text="@string/bottomconfignota_copia"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_copy" />
 
     <TextView
         android:id="@+id/text_compartilhar"
@@ -47,10 +47,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:drawableStart="@drawable/ic_share"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="Compartilhar"
-        android:textSize="14sp" />
+        android:text="@string/bottomconfignota_compartilhar"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_share" />
 
 </LinearLayout>

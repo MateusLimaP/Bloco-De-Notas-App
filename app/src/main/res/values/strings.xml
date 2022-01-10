@@ -1,3 +1,64 @@
 <resources>
     <string name="app_name">Bloco De Notas</string>
+
+    <!--Default Notes-->
+    <string name="nota1_titulo">Polar aurora</string>
+    <string name="nota1_msg">The polar aurora is an optical phenomenon composed of a brightness observed in the night skies in the polar regions.</string>
+    <string name="nota2_titulo">Notepad</string>
+    <string name="nota2_msg">The app helps you easily take notes anytime anywhere with or without an internet connection.</string>
+    <string name="nota3_titulo">Customize</string>
+    <string name="nota3_msg">Click on one of the notes and change its attributes, such as color, title, message and image</string>
+    <string name="nota4_titulo">More Options</string>
+    <string name="nota4_msg">Long click on one of the notes and see more custom options available\n\n Change Color\n Copy Note \n Delete\n Share</string>
+    <string name="nota5_titulo">Lorem Ipsum</string>
+    <string name="nota5_msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis orci consequat euismod venenatis.</string>
+
+    <!--Notas Dialog-->
+    <string name="permissao_escrita_titulo">App Permission</string>
+    <string name="permissao_escrita_msg">To select an image and save it in the app, it is necessary to guarantee the permission.</string>
+    <string name="permissao_escrita_positivo">Allow</string>
+    <string name="permissao_escrita_negativo">Cancel</string>
+
+    <string name="sairapp_titulo">Exit App</string>
+    <string name="sairapp_msg">Would you like to exit the app?</string>
+    <string name="sairapp_positivo">Exit</string>
+    <string name="sairapp_negativo">Cancel</string>
+
+    <!--AddEditNotasFragment-->
+    <string name="erro_campo_vazio">Empty Field</string>
+
+    <!--AddEditNotasFragment XML-->
+    <string name="addEditNotas_titulo">Title</string>
+    <string name="addEditNotas_descricao">Description</string>
+    <string name="addEditNotas_fab_contentdescription">Button used to save notes</string>
+
+    <!--HomeNotesFragment-->
+    <string name="compartilhar">Share</string>
+
+    <!--HomeNotesFragment XML-->
+    <string name="homenotes_nomeapp">Note App</string>
+    <string name="homenotes_pesquisar">Search</string>
+    <string name="homenotes_titulo">Title</string>
+    <string name="homenotes_data">Date</string>
+    <string name="homenotes_cor">Color</string>
+    <string name="homenotes_fab_contentdescription">Go to adding notes screen</string>
+
+    <!--SelecaoFotoFragment XML-->
+    <string name="selecaofoto_pesquisar">Search</string>
+    <string name="selecaofoto_dados">Data could not be loaded =(</string>
+
+    <!--BottomSheetConfigNota XML-->
+    <string name="bottomconfignota_deletar">Delete Note</string>
+    <string name="bottomconfignota_copia">Make a copy</string>
+    <string name="bottomconfignota_compartilhar">Share</string>
+
+    <!--BottomSheetFoto XML-->
+    <string name="bottomfoto_selecione">Select a photo</string>
+    <string name="bottomfoto_camera">Camera</string>
+    <string name="bottomfoto_galeria">Gallery</string>
+    <string name="bottomfoto_internet">Network</string>
+
+    <!--NotasLoadState XML-->
+    <string name="notasloadstate_error_message">Results could not be loaded</string>
+    <string name="notasloadstate_retry">Retry</string>
 </resources>

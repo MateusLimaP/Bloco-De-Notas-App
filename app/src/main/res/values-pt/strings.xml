@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bloco De Notas</string>
+    <!--Mateus Lima-->
+
+    <!--Default Notes-->
+    <string name="nota1_titulo">Aurora polar</string>
+    <string name="nota1_msg">A aurora polar é um fenômeno óptico composto de um brilho observado nos céus noturnos nas regiões polares</string>
+    <string name="nota2_titulo">Bloco de Notas</string>
+    <string name="nota2_msg">O aplicativo te ajuda a fazer anotações facilmente a qualquer hora em qualquer lugar com ou sem conexão com a internet.</string>
+    <string name="nota3_titulo">Personalize</string>
+    <string name="nota3_msg">Clique em uma das notas e altere seus atributos, como cor, titulo, mensagem e imagem</string>
+    <string name="nota4_titulo">Mais Opções</string>
+    <string name="nota4_msg">Dê um clique longo em uma das notas e veja mais opções personalizadas disponíveis\n\n Alterar Cor\n Copiar Nota \n Deletar\n Compartilhar</string>
+    <string name="nota5_titulo">Lorem Ipsum</string>
+    <string name="nota5_msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis orci consequat euismod venenatis.</string>
+    <!--Notas Dialog-->
+    <string name="permissao_escrita_titulo">Permissão do App</string>
+    <string name="permissao_escrita_msg">Para selecionar uma imagem e salvar no app é necessário garantir a permissão.</string>
+    <string name="permissao_escrita_positivo">Permitir</string>
+    <string name="permissao_escrita_negativo">Cancelar</string>
+
+    <string name="sairapp_titulo">Sair App</string>
+    <string name="sairapp_msg">Gostaria de sair do aplicativo?</string>
+    <string name="sairapp_positivo">Sair</string>
+    <string name="sairapp_negativo">Cancelar</string>
+
+    <!--AddEditNotasFragment-->
+    <string name="erro_campo_vazio">Campo Vazio</string>
+
+    <!--AddEditNotasFragment XML-->
+    <string name="addEditNotas_titulo">Título</string>
+    <string name="addEditNotas_descricao">Descrição</string>
+    <string name="addEditNotas_fab_contentdescription">Botão utilizado para salvar a anotação</string>
+
+    <!--HomeNotesFragment-->
+    <string name="compartilhar">Compartilhar</string>
+
+    <!--HomeNotesFragment XML-->
+    <string name="homenotes_nomeapp">Bloco de Notas</string>
+    <string name="homenotes_pesquisar">Pesquisar</string>
+    <string name="homenotes_titulo">Titulo</string>
+    <string name="homenotes_data">Data</string>
+    <string name="homenotes_cor">Cor</string>
+    <string name="homenotes_fab_contentdescription">Vai para a tela de adição de notas</string>
+
+    <!--SelecaoFotoFragment XML-->
+    <string name="selecaofoto_pesquisar">Pesquisar</string>
+    <string name="selecaofoto_dados">Dados não puderam ser carregados =(</string>
+
+    <!--BottomSheetConfigNota XML-->
+    <string name="bottomconfignota_deletar">Deletar Nota</string>
+    <string name="bottomconfignota_copia">Fazer uma cópia</string>
+    <string name="bottomconfignota_compartilhar">Compartilhar</string>
+
+    <!--BottomSheetFoto XML-->
+    <string name="bottomfoto_selecione">Selecione uma foto</string>
+    <string name="bottomfoto_camera">Câmera</string>
+    <string name="bottomfoto_galeria">Galeria</string>
+    <string name="bottomfoto_internet">Internet</string>
+
+    <!--NotasLoadState XML-->
+    <string name="notasloadstate_error_message">Resultados não puderam ser carregados</string>
+    <string name="notasloadstate_retry">Tentar Novamente</string>
+
+
+</resources>

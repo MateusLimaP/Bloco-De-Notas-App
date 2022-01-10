@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:text="Selecione uma foto"/>
+        android:text="@string/bottomfoto_selecione"/>
 
     <TextView
         android:id="@+id/text_camera"
@@ -20,7 +20,7 @@
         android:layout_marginTop="30dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="Câmera"
+        android:text="@string/bottomfoto_camera"
         android:textSize="18sp"
         app:drawableStartCompat="@drawable/ic_camera" />
 
@@ -31,7 +31,7 @@
         android:layout_marginTop="10dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="Galeria"
+        android:text="@string/bottomfoto_galeria"
         android:textSize="18sp"
         app:drawableStartCompat="@drawable/ic_galeria" />
 
@@ -42,7 +42,7 @@
         android:layout_marginTop="10dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="Internet"
+        android:text="@string/bottomfoto_internet"
         android:textSize="18sp"
         app:drawableStartCompat="@drawable/ic_internet" />
 

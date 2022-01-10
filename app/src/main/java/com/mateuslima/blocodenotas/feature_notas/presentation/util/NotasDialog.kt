@@ -8,24 +8,24 @@ import com.mateuslima.blocodenotas.R
 
 object NotasDialog {
 
-    fun permissaoEscritaGaleria(context: Context, writeLauncher: ActivityResultLauncher<String>){
+    fun permissaoEscrita(context: Context, writeLauncher: ActivityResultLauncher<String>){
         val dialog = AlertDialog.Builder(context, R.style.AlertDialogTheme)
-            .setTitle("Permissão Escrita")
-            .setMessage("Para acessar a galeria e selecionar uma imagem é necessário aceitar a permissao de escrita no app")
-            .setPositiveButton("Confirmar"){dialog,_ ->
+            .setTitle(R.string.permissao_escrita_titulo)
+            .setMessage(R.string.permissao_escrita_msg)
+            .setPositiveButton(R.string.permissao_escrita_positivo){dialog,_ ->
 
                 writeLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
-            .setNegativeButton("Cancelar"){dialog,_ -> }
+            .setNegativeButton(R.string.permissao_escrita_negativo){dialog,_ -> }
         dialog.show()
     }
 
     fun sairApp(context: Context, sair: (Boolean) -> Unit){
         val dialog = AlertDialog.Builder(context, R.style.AlertDialogTheme)
-            .setTitle("Sair App")
-            .setMessage("Gostaria de sair do aplicativo?")
-            .setPositiveButton("Sair"){_,_ -> sair.invoke(true)}
-            .setNegativeButton("Cancelar"){_,_ -> sair.invoke(false)}
+            .setTitle(R.string.sairapp_titulo)
+            .setMessage(R.string.sairapp_msg)
+            .setPositiveButton(R.string.sairapp_positivo){_,_ -> sair.invoke(true)}
+            .setNegativeButton(R.string.sairapp_negativo){_,_ -> sair.invoke(false)}
         dialog.show()
     }
 }

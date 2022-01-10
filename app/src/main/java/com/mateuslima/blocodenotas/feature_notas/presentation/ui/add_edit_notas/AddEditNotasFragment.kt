@@ -3,7 +3,6 @@ package com.mateuslima.blocodenotas.feature_notas.presentation.ui.add_edit_notas
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
@@ -11,12 +10,10 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mateuslima.blocodenotas.R
@@ -24,8 +21,6 @@ import com.mateuslima.blocodenotas.core.util.ImageUtil
 import com.mateuslima.blocodenotas.core.util.UriUtils
 import com.mateuslima.blocodenotas.databinding.FragmentAddEditNotasBinding
 import com.mateuslima.blocodenotas.feature_notas.domain.model.Nota
-import com.mateuslima.blocodenotas.feature_notas.domain.usecase.AddNotaUseCase
-import com.mateuslima.blocodenotas.feature_notas.domain.usecase.AtualizarNotaUseCase
 import com.mateuslima.blocodenotas.feature_notas.domain.usecase.SaveOrUpdateNoteUseCase
 import com.mateuslima.blocodenotas.feature_notas.presentation.adapter.CoresAdapter
 import com.mateuslima.blocodenotas.feature_notas.presentation.ui.selecao_foto.SelecaoFotoFragment
@@ -64,26 +59,11 @@ BottomSheetFoto.BottomSheetFotoListener{
 
         }
 
-        /*viewModel.addNotaEvent.observe(viewLifecycleOwner){event ->
-            when (event){
-                AddNotaUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = "Empty Field"
-                AddNotaUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
-                AddNotaUseCase.Result.Sucesso -> findNavController().popBackStack()
-            }
-        }
-
-        viewModel.atualizarNotaEvent.observe(viewLifecycleOwner){event ->
-            when (event){
-                AtualizarNotaUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = "Empty Field"
-                AtualizarNotaUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
-                AtualizarNotaUseCase.Result.Sucesso -> findNavController().popBackStack()
-            }
-        }*/
 
         viewModel.salvarNotaEvent.observe(viewLifecycleOwner){ event ->
             when(event){
-                SaveOrUpdateNoteUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = "Empty Field"
-                SaveOrUpdateNoteUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = "Empty Field"
+                SaveOrUpdateNoteUseCase.Result.CampoDescricaoVazio -> binding.editDescricao.error = getString(R.string.erro_campo_vazio)
+                SaveOrUpdateNoteUseCase.Result.CampoTituloVazio -> binding.editTitulo.error = getString(R.string.erro_campo_vazio)
                 is SaveOrUpdateNoteUseCase.Result.NotaAtualizada -> findNavController().popBackStack()
                 is SaveOrUpdateNoteUseCase.Result.NotaSalva -> findNavController().popBackStack()
             }
@@ -121,7 +101,7 @@ BottomSheetFoto.BottomSheetFotoListener{
     }
 
     private fun showDialogPermissaoEscrita(){
-        NotasDialog.permissaoEscritaGaleria(requireContext(), launchWritePermission)
+        NotasDialog.permissaoEscrita(requireContext(), launchWritePermission)
     }
 
     private val launchGaleria = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ response ->

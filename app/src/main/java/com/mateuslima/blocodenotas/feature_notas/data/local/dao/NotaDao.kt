@@ -19,7 +19,7 @@ interface NotaDao {
     @Query("SELECT * FROM nota_table")
     fun getAllNotes() : List<NotaEntity>
 
-    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY titulo ASC")
+    @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY LOWER(titulo) ASC")
     fun getNotesOrderTitle(search: String) : Flow<List<NotaEntity>>
 
     @Query("SELECT * FROM nota_table WHERE titulo LIKE '%' || :search || '%' ORDER BY corHex ASC")

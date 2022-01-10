@@ -63,7 +63,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:backgroundTint="@color/white"
-                android:hint="Titulo"
+                android:hint="@string/addEditNotas_titulo"
                 android:importantForAutofill="no" />
 
             <LinearLayout
@@ -88,7 +88,7 @@
                     android:textColor="@color/black"
                     android:textColorHint="@android:color/tab_indicator_text"
                     android:backgroundTint="@color/white"
-                    android:hint="Descrição"
+                    android:hint="@string/addEditNotas_descricao"
                     android:importantForAutofill="no" />
 
             </LinearLayout>
@@ -106,6 +106,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:src="@drawable/ic_save"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/addEditNotas_fab_contentdescription" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

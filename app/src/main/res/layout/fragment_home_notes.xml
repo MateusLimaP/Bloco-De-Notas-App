@@ -20,19 +20,14 @@
             app:layout_scrollFlags="scroll|enterAlways">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Bloco de notas"
+                android:text="@string/homenotes_nomeapp"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:minHeight="48dp" />
+
 
         </LinearLayout>
 
@@ -57,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:queryBackground="@android:color/transparent"
-            app:queryHint="Pesquisar" />
+            app:queryHint="@string/homenotes_pesquisar" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -88,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/white"
                 android:minHeight="48dp"
-                android:text="Titulo"
+                android:text="@string/homenotes_titulo"
                 android:textColor="@color/white" />
 
             <RadioButton
@@ -97,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/white"
                 android:minHeight="48dp"
-                android:text="Data"
+                android:text="@string/homenotes_data"
                 android:textColor="@color/white" />
 
             <RadioButton
@@ -106,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/white"
                 android:minHeight="48dp"
-                android:text="Cor"
+                android:text="@string/homenotes_cor"
                 android:textColor="@color/white" />
         </RadioGroup>
 
@@ -131,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="16dp"
-        android:contentDescription="fab_add"
+        android:contentDescription="@string/homenotes_fab_contentdescription"
         android:src="@drawable/ic_add"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
